@@ -16,13 +16,10 @@ public class BubbleController {
     private static final String ONE = "1";
 
     @GetMapping(value = "/index")
-    public ModelAndView index(HttpServletRequest request){
+    public ModelAndView index(){
         ModelAndView mdv = new ModelAndView();
         //要跳转的页面
         mdv.setViewName("bubble");
-        //传入对象
-        mdv.addObject("bubbleStatus",bubbleStatus);
-
         return mdv;
     }
     @RequestMapping(value = "/alter/{status}")
@@ -37,8 +34,7 @@ public class BubbleController {
     }
     @RequestMapping(value = "/backIndex")
     @ResponseBody
-    public String backIndex(HttpServletRequest request){
-        request.setAttribute("bubbleStatus", bubbleStatus);
+    public String backIndex(){
         return bubbleStatus;
     }
 
