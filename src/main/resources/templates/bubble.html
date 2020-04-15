@@ -5,23 +5,41 @@
     <title>mockserver</title>
 </head>
 <body>
-
+<div id="bubbleStatus" type="text" ></div>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
 <script>
-    function changeImage()
-    {
-        var status = '${status}'
-        element=document.getElementById('myimage')
-        if (status == "1"){
-            element.src="../img/pic_bulboff.gif";
-        }
-        else{
-            element.src="../img/pic_bulbon.gif";
-        }
+    if(window.name == ""){
+        console.log("首次被加载");
+        window.name = "isReload"; // 在首次进入页面时我们可以给window.name设置一个固定值
+    }else if(window.name == "isReload"){
+        $.ajax({
+            url: "/bubble/backIndex",//后台提供的接口
+            type: "post",  //请求方式是post
+            dataType: "json", //数据类型是json型
+            success: function (data) {  //成功时返回的data值，注意这个data是后台返回的值，上面的data是你要传给后台的值
+                console.log(data);//可以在控制台查看打印的data值
+
+                switch(data){//根据后台返回的data.SuccessCode来判断执行什么语句
+                    case 0:
+                        document.getElementById('myBubble').src="../img/pic_bulboff.gif";
+                        document.getElementById("bubbleStatus").innerHTML = "0"
+                        break;
+                    case 1:
+                        document.getElementById('myBubble').src="../img/pic_bulbon.gif";
+                        document.getElementById("bubbleStatus").innerHTML = "1"
+                        break;
+                    default:
+                        alert("系统繁忙，请稍后再试");
+                }
+            },
+        });
+        console.log("页面被刷新");
     }
+    setTimeout("location=location;", 500);
+
 </script>
-<!--<img src="divcss5-logo-201305.gif" width="165" height="60" />-->
-<img id="myimage" onclick="changeImage()" src="../img/pic_bulboff.gif" width="100" height="180">
-<p>点击灯泡就可以打开或关闭这盏灯</p>
+<img id="myBubble"  src="../img/pic_bulboff.gif" width="100" height="180" >
+<p>灯泡</p>
 
 </body>
 </html>
