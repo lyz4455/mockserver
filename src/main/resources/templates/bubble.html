@@ -5,13 +5,11 @@
     <title>mockserver</title>
 </head>
 <body>
-<div id="bubbleStatus" type="text" ></div>
+<!--<div id="bubbleStatus" type="text" ></div>-->
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script>
-    if(window.name == ""){
-        console.log("首次被加载");
-        window.name = "isReload"; // 在首次进入页面时我们可以给window.name设置一个固定值
-    }else if(window.name == "isReload"){
+    setInterval("test()",100);
+    function test() {
         $.ajax({
             url: "/bubble/backIndex",//后台提供的接口
             type: "post",  //请求方式是post
@@ -33,9 +31,8 @@
                 }
             },
         });
-        console.log("页面被刷新");
     }
-    setTimeout("location=location;", 500);
+    // setTimeout("location=location;", 50);
 
 </script>
 <img id="myBubble"  src="../img/pic_bulboff.gif" width="100" height="180" >

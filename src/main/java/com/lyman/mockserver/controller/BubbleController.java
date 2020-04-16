@@ -11,7 +11,7 @@ import java.util.List;
 @RequestMapping("bubble")
 public class BubbleController {
 
-    private static String bubbleStatus = "0";
+    private static String bubbleStatus = "1";
     private static final String ZERO = "0";
     private static final String ONE = "1";
 
